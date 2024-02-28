@@ -29,6 +29,7 @@ const signup = async (req, res) => {
         contact: user.contact,
         password: hashPassword(user.password),
         name: user.name,
+        role: user.role,
       },
     });
     res.json(user);

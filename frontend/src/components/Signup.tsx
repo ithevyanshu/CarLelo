@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -27,6 +29,7 @@ const Signup = () => {
         password: formData.password
       })
     });
+    navigate('/login');
   }
 
   return (
@@ -35,10 +38,10 @@ const Signup = () => {
         <h1 className="text-3xl font-bold text-center py-16">Car-on-Rent</h1>
         <p className="text-center text-lg font-semibold pb-16">Create your account</p>
         <form className="mx-auto max-w-md" onSubmit={signup}>
-          <input type="text" name="name" value={formData.name} placeholder="Name" className="w-full border-2 rounded-md p-2 mb-4 outline-none" onChange={handleInputChange}/>
-          <input type="email" name="email" value={formData.email} placeholder="Email" className="w-full border-2 rounded-md p-2 mb-4 outline-none" onChange={handleInputChange}/>
-          <input type="text" name="contact" value={formData.contact} placeholder="Contact (+91)" className="w-full border-2 rounded-md p-2 mb-4 outline-none" onChange={handleInputChange}/>
-          <input type="password" name="password" value={formData.password} placeholder="Password" className="w-full border-2 rounded-md p-2 mb-4 outline-none" onChange={handleInputChange}/>
+          <input type="text" name="name" value={formData.name} placeholder="Name" className="w-full border-2 rounded-md p-2 mb-4 outline-none" onChange={handleInputChange} />
+          <input type="email" name="email" value={formData.email} placeholder="Email" className="w-full border-2 rounded-md p-2 mb-4 outline-none" onChange={handleInputChange} />
+          <input type="text" name="contact" value={formData.contact} placeholder="Contact (+91)" className="w-full border-2 rounded-md p-2 mb-4 outline-none" onChange={handleInputChange} />
+          <input type="password" name="password" value={formData.password} placeholder="Password" className="w-full border-2 rounded-md p-2 mb-4 outline-none" onChange={handleInputChange} />
           <button className="w-full bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10">Register</button>
         </form>
       </div>
