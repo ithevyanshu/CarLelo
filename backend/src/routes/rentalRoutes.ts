@@ -1,5 +1,4 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
 import {
   allRental,
   createRental,
@@ -12,7 +11,6 @@ import {
 } from "../controller/rentalController";
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 router.get("/", allRental).post("/", createRental);
 router.get("/id/:id", rentalById);
