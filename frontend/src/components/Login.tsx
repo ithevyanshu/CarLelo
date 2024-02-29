@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useTitle from "../hooks/useTitle";
 
 const Login = () => {
+  useTitle("Login");
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -14,10 +16,11 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  const login = async(e: React.FormEvent) => {
+  const login = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = await axios.post('http://localhost:3000/auth/login', formData);
-    localStorage.setItem('access_token', response.data);
+    const accessToken = response.data;
+    localStorage.setItem('x-var', accessToken);
     navigate('/');
   }
 

@@ -4,9 +4,9 @@ import useTitle from "../hooks/useTitle";
 import Loading from "./Loading";
 
 const Dashboard = () => {
+  useTitle("Dashboard");
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
-  useTitle("Dashboard");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +30,7 @@ const Dashboard = () => {
       ) : (
         <div className="pt-20 mx-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            {cars.map((car : { id: string, maker: string, model: string, status: string, price: number, img: string }) => (
+            {cars.map((car: { id: string, maker: string, model: string, status: string, price: number, img: string }) => (
               <div key={car.id} className="flex flex-col items-center border-2 rounded-md shadow-md">
                 <div className="flex flex-col items-center">
                   <div>
@@ -45,7 +45,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="pb-8">
-                  <button className={`bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10 ${!car.status && 'cursor-not-allowed'}`} disabled={!car.status}>
+                  <button className={`bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10  ${!car.status && 'cursor-not-allowed'}`} disabled={!car.status}>
                     {car.status ? "Rent Now" : "(Not Available)"}
                   </button>
                 </div>
