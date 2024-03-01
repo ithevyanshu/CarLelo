@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useTitle from "../hooks/useTitle";
 import Loading from "./Loading";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   useTitle("Dashboard");
+  const navigate = useNavigate();
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,6 +24,10 @@ const Dashboard = () => {
     };
     fetchData();
   }, []);
+
+  const rentalNow = () => {
+    navigate("/car-information");
+  };
 
   return (
     <>
@@ -45,7 +51,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="pb-8">
-                  <button className={`bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10  ${!car.status && 'cursor-not-allowed'}`} disabled={!car.status}>
+                  <button className={`bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10  ${!car.status && 'cursor-not-allowed'}`} disabled={!car.status} onClick={rentalNow}>
                     {car.status ? "Rent Now" : "(Not Available)"}
                   </button>
                 </div>
