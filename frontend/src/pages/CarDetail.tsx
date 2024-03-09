@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useTitle from "../hooks/useTitle";
 import axios from "axios";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 interface Car {
     id: string;
@@ -12,15 +13,20 @@ interface Car {
     img: string;
 }
 
-export const CarDetail = () => {
+const CarDetail = () => {
 
-    const id = window.location.pathname.split("/")[2];
+    const navigate = useNavigate();
+    const id = window.location.pathname.split("/")[3];
     const [car, setCar] = useState<Car | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get<Car>(`http://localhost:3000/car/${id}`);
+                const response = await axios.get<Car>(`http://localhost:3000/car/${id}`,{
+                    headers: {
+                        Authorization: localStorage.getItem("x-var"),
+                    },
+                });
                 setCar(response.data);
             } catch (error) {
                 console.log(error);
@@ -30,6 +36,10 @@ export const CarDetail = () => {
     }, [id]);
 
     useTitle(car ? `${car.maker} ${car.model}` : "");
+
+    const gotoAgreement = () => {
+        navigate(`/dashboard/car-details/${id}/agreement`);
+    };
 
     return (
         <div className="py-20">
@@ -49,7 +59,7 @@ export const CarDetail = () => {
                             </div>
                         </div>
                         <div className="pb-8">
-                            <button className={`bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10`}>
+                            <button className={`bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10`} onClick={gotoAgreement}>
                                 Rent Now
                             </button>
                         </div>
@@ -61,3 +71,5 @@ export const CarDetail = () => {
         </div>
     );
 };
+
+export default CarDetail;

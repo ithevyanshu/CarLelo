@@ -16,13 +16,17 @@ interface Car {
 const Dashboard = () => {
   useTitle("Dashboard");
   const navigate = useNavigate();
-  const [cars, setCars] = useState<Car[]>([]); 
+  const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<Car[]>("http://localhost:3000/car"); // Specify the response type as Car[]
+        const response = await axios.get<Car[]>("http://localhost:3000/car", {
+          headers: {
+            Authorization: localStorage.getItem("x-var"),
+          },
+        });
         const data = response.data;
         setCars(data);
         setLoading(false);
@@ -34,8 +38,8 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  const rentalNow = (carId: string) => { // Specify the type of carId as string
-    navigate(`/car-information/${carId}`);
+  const rentalNow = (carId: string) => {
+    navigate(`/dashboard/car-details/${carId}`);
   };
 
   return (

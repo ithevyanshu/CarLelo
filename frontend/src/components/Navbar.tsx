@@ -14,9 +14,9 @@ const Navbar = () => {
         <Link to="/" className="text-3xl font-bold text-black">Car-on-Rent</Link>
         <div>
           <Link to="/" className="p-1 hover:underline"> All Rentals </Link>
-          <Link to="/rental" className="p-1 hover:underline"> Add Car </Link>
-          <Link to="/rental" className="p-1 hover:underline"> Agreements </Link>
-          <Link to="/car" className="p-1 hover:underline"> Return Request </Link>
+          <Link to="/admin/add-car" className="p-1 hover:underline"> Add Car </Link>
+          <Link to="/dashboard/agreements" className="p-1 hover:underline"> Agreements </Link>
+          <Link to="/admin/return-request" className="p-1 hover:underline"> Return Request </Link>
         </div>
         <div className="flex content-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4">
@@ -24,9 +24,9 @@ const Navbar = () => {
           </svg>
           {islogin ? <button className="p-1 hover:underline" onClick={logout}>Logout</button> :
             <>
-              <Link to="/login" className="p-1 hover:underline"> Login </Link>
+              <Link to="/auth/login" className="p-1 hover:underline"> Login </Link>
               <span className="py-1">/</span>
-              <Link to="/signup" className="p-1 hover:underline "> Register</Link>
+              <Link to="/auth/signup" className="p-1 hover:underline "> Register</Link>
             </>
           }
         </div>
