@@ -1,11 +1,11 @@
 import './App.css'
+import { RecoilRoot } from 'recoil'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './layout/Layout'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import Dashboard from './components/Dashboard'
-import { RecoilRoot } from 'recoil'
-import { CarDetail } from './components/CarDetail'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Dashboard from './pages/Dashboard'
+import { CarDetail } from './pages/CarDetail'
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
               <Route path='/' element={<Dashboard />} />
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
-              <Route path='/car-information' element={<CarDetail />} />
+              <Route path='/car-information/:id' element={<CarDetail />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useTitle from "../hooks/useTitle";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+
+interface Car {
+  id: string;
+  maker: string;
+  model: string;
+  status: boolean;
+  price: number;
+  img: string;
+}
 
 const Dashboard = () => {
   useTitle("Dashboard");
   const navigate = useNavigate();
-  const [cars, setCars] = useState([]);
+  const [cars, setCars] = useState<Car[]>([]); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/car");
+        const response = await axios.get<Car[]>("http://localhost:3000/car"); // Specify the response type as Car[]
         const data = response.data;
         setCars(data);
         setLoading(false);
@@ -25,8 +34,8 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  const rentalNow = () => {
-    navigate("/car-information");
+  const rentalNow = (carId: string) => { // Specify the type of carId as string
+    navigate(`/car-information/${carId}`);
   };
 
   return (
@@ -36,7 +45,7 @@ const Dashboard = () => {
       ) : (
         <div className="pt-20 mx-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            {cars.map((car: { id: string, maker: string, model: string, status: string, price: number, img: string }) => (
+            {cars.map((car) => (
               <div key={car.id} className="flex flex-col items-center border-2 rounded-md shadow-md">
                 <div className="flex flex-col items-center">
                   <div>
@@ -51,7 +60,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="pb-8">
-                  <button className={`bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10  ${!car.status && 'cursor-not-allowed'}`} disabled={!car.status} onClick={rentalNow}>
+                  <button className={`bg-slate-300 hover:bg-slate-200 font-bold py-2 px-10`} onClick={() => rentalNow(car.id)}>
                     {car.status ? "Rent Now" : "(Not Available)"}
                   </button>
                 </div>
